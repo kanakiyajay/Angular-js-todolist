@@ -17,7 +17,7 @@ App.controller("TodoCtrl",function  ($scope) {
 							];
 
 	$scope.addTodo = function  () {
-		$scope.todos.push({taskName : $scope.newTodo , isDone : false });
+		$scope.todos.splice(0,0,{taskName : $scope.newTodo , isDone : false });
 		$scope.newTodo = "";
 	};
 

@@ -63,11 +63,22 @@
 		<div class="row">
 			<div class="col-xs-3"></div>
 			<div class="col-xs-9">
-				<input type="text" ng-model="newTodo">
-				<button class="btn btn-default" ng-click="addTodo()">Add</button>
-				<ul>
-					<li ng-repeat="todo in todos"><input ng-model="todo.isDone" type="checkbox"> {{todo.taskName}}</li>
-				</ul>
+				<div class="row" id="todoAdd">
+				<form class="form-inline" role="form"></form>
+					<div class="form-group">
+						<input id="todoField" type="text" ng-model="newTodo" placeholder="Add New Todo">
+						<button id="todoSubmit" class="btn btn-default" ng-click="addTodo()">Add</button>
+					</div>
+				</div>
+				<div class="row">
+					<ul class="list-unstyled">
+						<li class="todoTask" ng-repeat="todo in todos">
+							<input class="todoCheckbox" ng-model="todo.isDone" type="checkbox">
+							<label class="todoCheckboxlabel" ></label>
+							<span class="todoName">{{todo.taskName}}</span>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 
