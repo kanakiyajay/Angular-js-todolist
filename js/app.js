@@ -6,7 +6,7 @@
 **/
 "use strict";
 
-var App = angular.module("todo",[]);
+var App = angular.module("todo",["ui.sortable"]);
 
 App.controller("TodoCtrl",function  ($scope) {
 
@@ -19,6 +19,12 @@ App.controller("TodoCtrl",function  ($scope) {
 	$scope.addTodo = function  () {
 		$scope.todos.splice(0,0,{taskName : $scope.newTodo , isDone : false });
 		$scope.newTodo = "";
+	};
+
+	$scope.todoSortable = {
+		containment : "parent",
+		cursor : "move",
+		tolerance : "pointer"
 	};
 
 });
