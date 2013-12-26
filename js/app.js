@@ -6,25 +6,38 @@
 **/
 "use strict";
 
-var App = angular.module("todo",["ui.sortable"]);
+var App = angular.module("todo",["ui.sortable","LocalStorageModule"]);
 
-App.controller("TodoCtrl",function  ($scope) {
+App.controller("TodoCtrl",function  ($scope,localStorageService) {
 
-	$scope.todos = [
-								{ taskName : "Write an Angular js Tutorial for Todo-List" , isDone : false },
-								{ taskName : "Update jquer.in" , isDone : false },
-								{ taskName : "Create a brand-new Resume" , isDone : false }
-							];
-
+	/* The Model */
 	$scope.addTodo = function  () {
+		/*Should prepend to array*/
 		$scope.todos.splice(0,0,{taskName : $scope.newTodo , isDone : false });
+		/*Reset the Field*/
 		$scope.newTodo = "";
 	};
 
 	$scope.todoSortable = {
-		containment : "parent",
-		cursor : "move",
-		tolerance : "pointer"
+		containment : "parent",//Dont let the user drag outside the parent
+		cursor : "move",//Change the cursor icon on drag
+		tolerance : "pointer"//Read http://api.jqueryui.com/sortable/#option-tolerance
 	};
+
+	$scope.init = function  () {
+		if (localStorageService.get("todoList")===null) {
+			$scope.todos = [
+				{ taskName : "Create an Angular-js TodoList" , isDone : false }
+			];
+		}else{
+			$scope.todos = localStorageService.get("todoList");
+		}
+	};
+
+	$scope.$watch("todos",function  (newVal,oldVal) {
+		if (newVal !== null && angular.isDefined(newVal) && newVal!==oldVal) {
+			localStorageService.add("todoList",angular.toJson(newVal));
+		}
+	},true);
 
 });
