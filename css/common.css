@@ -12,10 +12,13 @@
 	margin-left: 40px;
 }
 
-#todoField{
+.todoField{
 	padding-left: 5px;
 	font-size: 20px;
-	margin: 20px
+}
+
+#newTodoField{
+	margin: 20px;
 }
 
 #todoSubmit{
@@ -30,4 +33,20 @@
 	font-size: 20px;
 	border-bottom: 1px lightgray solid;
 	padding-bottom:5px;
+}
+
+.edit-in-place span {
+  cursor: pointer;
+}
+
+.edit-in-place input {
+  display: none;
+}
+
+.edit-in-place.active span {
+  display: none;
+}
+
+.edit-in-place.active input {
+  display: inline-block;
 }
