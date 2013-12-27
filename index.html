@@ -44,18 +44,28 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Angular-js Example</a>
+          <a class="navbar-brand" href="#">Angular-js TodoList</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a  target="_blank" title="Angular js Tutorial" href="http://blog.jaykanakiya.com/">Go back to Tutorial</a></li>
-            <li><a href="http://jaykanakiya.com/contact" title="Contact Jay Kanakiya">Contact Me</a></li>
-            <li><a href="http://github.com/kanakiyajay/" title="Github angular js">Github Link</a></li>
+            <li><a  target="_blank" title="Angular js Tutorial" href="http://blog.jaykanakiya.com/angular-js-todo-list-sortable/">Go back to Tutorial</a></li>
+            <li><a href="http://blog.jaykanakiya.com/contact/" title="Contact Jay Kanakiya">Contact Me</a></li>
+            <li><a href="https://github.com/kanakiyajay/Angular-js-todolist/" title="Github angular js">Github Link</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Links <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a title="jQuery plugins" href="http://jquer.in/" target="_blank">A jQuery plugin a Day</a></li>
+                <li class="active"><a title="Tutorial" href="https://github.com/kanakiyajay/Angular-js-todolist/" target="_blank">Angular-js TodoList</a></li>
+                <li><a title="Twitter" href="https://twitter.com/techiejayk" target="_blank">@techiejayk</a></li>
               </ul>
+            </li>
+            <li class="dropdown">
+            		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Share <b class="caret"></b></a>
+            		<ul class="dropdown-menu">
+            		<li><a href="https://twitter.com/intent/tweet?url=http://jaykanakiya.com/demos/angular-js-todolist/&text=Massive Angular-js-Todo-List-Tutorial&via=techiejayk">Twitter</a></li>
+            		<li><a href="https://facebook.com/sharer.php?u=http://jaykanakiya.com/demos/angular-js-todolist/">Facebook</a></li>
+           		<li><a href="https://plus.google.com/share?url=http://jaykanakiya.com/demos/angular-js-todolist/">Google+</a></li>
+            		</ul>
             </li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -66,8 +76,24 @@
 		<div class="row">
 			<div class="col-xs-3"></div>
 			<div class="col-xs-6">
+				<div class="row">
+					<div class="col-xs-7">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+							<input type="search" class="form-control" placeholder="Search" ng-model="todoSearch">
+						</div>
+					</div>
+					<div class="col-xs-5">
+						<ul class="nav nav-pills todo-filter">
+						  <li ng-class="{'active' : show == 'All' }" ng-click="show='All'"><a href="#">All</a></li>
+						  <li ng-class="{'active' : show == 'Incomplete' }" ng-click="show='Incomplete'"><a href="#">Incomplete</a></li>
+						  <li ng-class="{'active' : show == 'Complete' }" ng-click="show='Complete'"><a href="#">Complete</a></li>
+						</ul>
+					</div>
+				</div>
 				<div class="row" id="todoAdd">
-				<form class="form-inline" role="form"></form>
 					<div class="form-group">
 						<input class="todoField" id="newTodoField" type="text" ng-model="newTodo" placeholder="Add New Todo">
 						<button id="todoSubmit" class="btn btn-default" ng-click="addTodo()">Add</button>
@@ -75,7 +101,7 @@
 				</div>
 				<div class="row">
 					<ul class="list-unstyled" ui-sortable="todoSortable" ng-model="todos">
-						<li class="todoTask" ng-repeat="todo in todos">
+						<li class="todoTask" ng-repeat="todo in todos | filter:showFn | filter :todoSearch ">
 							<input class="todoCheckbox" ng-model="todo.isDone" type="checkbox">
 							<label class="todoCheckboxlabel" ></label>
 							<edit-in-place value="todo.taskName"></edit-in-place>

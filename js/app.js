@@ -19,6 +19,7 @@ App.controller("TodoCtrl",function  ($scope,localStorageService) {
 		}else{
 			$scope.todos = localStorageService.get("todoList");
 		}
+		$scope.show = "All";
 	};
 
 	$scope.addTodo = function  () {
@@ -38,6 +39,18 @@ App.controller("TodoCtrl",function  ($scope,localStorageService) {
 		tolerance : "pointer"//Read http://api.jqueryui.com/sortable/#option-tolerance
 	};
 
+	/* Filter Function for All | Incomplete | Complete */
+	$scope.showFn = function  (todo) {
+		if ($scope.show === "All") {
+			return true;
+		}else if(todo.isDone && $scope.show === "Complete"){
+			return true;
+		}else if(!todo.isDone && $scope.show === "Incomplete"){
+			return true;
+		}else{
+			return false;
+		}
+	};
 
 	$scope.$watch("todos",function  (newVal,oldVal) {
 		if (newVal !== null && angular.isDefined(newVal) && newVal!==oldVal) {
