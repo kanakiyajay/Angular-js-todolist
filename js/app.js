@@ -11,34 +11,28 @@ var App = angular.module("todo",["ui.sortable","LocalStorageModule"]);
 App.controller("TodoCtrl",function  ($scope,localStorageService) {
 
 	$scope.init = function  () {
-		/*
+
 		if (localStorageService.get("todoList")===null) {
-			$scope.model = [{name : "Primary" , list : [{ taskName : "Create an Angular-js TodoList" , isDone : false }]} ]
-			$scope.todos = [
-				{ taskName : "Create an Angular-js TodoList" , isDone : false }
+			$scope.model = [
+				{
+					name : "Primary" , list : [
+						{ taskName : "Create an Angular-js TodoList" , isDone : false },
+						{ taskName : "Understanding Angular-js Directives" , isDone : true }
+					]
+				},
+				{
+					name : "Secondary" , list : [
+						{ taskName : "Build an open-source website builder" , isDone : false },
+						{ taskName : "BUild an Email Builder" , isDone : false }
+					]
+				}
 			];
 		}else{
-			$scope.todos = localStorageService.get("todoList");
+			$scope.model = localStorageService.get("todoList");
 		}
-		*/
+		$scope.show = "All";
+		$scope.currentShow = 0;
 	};
-
-	$scope.show = "All";
-	$scope.model = [
-		{
-			name : "Primary" , list : [
-				{ taskName : "Create an Angular-js TodoList" , isDone : false },
-				{ taskName : "Understanding Angular-js Directives" , isDone : true }
-			]
-		},
-		{
-			name : "Secondary" , list : [
-				{ taskName : "Build an open-source website builder" , isDone : false },
-				{ taskName : "BUild an Email Builder" , isDone : false }
-			]
-		}
-	];
-	$scope.currentShow = 0;
 
 	$scope.addTodo = function  () {
 		/*Should prepend to array*/
