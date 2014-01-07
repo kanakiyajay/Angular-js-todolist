@@ -74,7 +74,14 @@
 
 	<div class="container" ng-controller="TodoCtrl" id="playground">
 		<div class="row">
-			<div class="col-xs-3"></div>
+			<div class="col-xs-3">
+				<div class="list-group">
+					<a href="#" ng-repeat="todos in model" class="list-group-item" ng-class="{'active' : currentShow === $index}" ng-click="changeTodo($index)" >
+					<span class="badge">{{todos.list.length}}</span>
+					{{todos.name}}
+					</a>
+				</div>
+			</div>
 			<div class="col-xs-6">
 				<div class="row">
 					<div class="col-xs-7">
@@ -100,8 +107,8 @@
 					</div>
 				</div>
 				<div class="row">
-					<ul class="list-unstyled" ui-sortable="todoSortable" ng-model="todos">
-						<li class="todoTask" ng-repeat="todo in todos | filter:showFn | filter :todoSearch ">
+					<ul class="list-unstyled" ui-sortable="todoSortable" ng-model="todos" ng-repeat="todos in model" ng-show="$index === currentShow">
+						<li class="todoTask" ng-repeat="todo in todos.list | filter:showFn | filter :todoSearch ">
 							<input class="todoCheckbox" ng-model="todo.isDone" type="checkbox">
 							<label class="todoCheckboxlabel" ></label>
 							<edit-in-place value="todo.taskName"></edit-in-place>
@@ -114,7 +121,7 @@
 
 		<div class="row">
 			<div class="debug">
-				<p class="text-info">{{ todos | json}}</p>
+				<p class="text-info">{{ model | json}}</p>
 			</div>
 		</div>
 	</div>

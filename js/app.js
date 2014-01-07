@@ -11,32 +11,54 @@ var App = angular.module("todo",["ui.sortable","LocalStorageModule"]);
 App.controller("TodoCtrl",function  ($scope,localStorageService) {
 
 	$scope.init = function  () {
+		/*
 		if (localStorageService.get("todoList")===null) {
-			/* The Model */
+			$scope.model = [{name : "Primary" , list : [{ taskName : "Create an Angular-js TodoList" , isDone : false }]} ]
 			$scope.todos = [
 				{ taskName : "Create an Angular-js TodoList" , isDone : false }
 			];
 		}else{
 			$scope.todos = localStorageService.get("todoList");
 		}
-		$scope.show = "All";
+		*/
 	};
+
+	$scope.show = "All";
+	$scope.model = [
+		{
+			name : "Primary" , list : [
+				{ taskName : "Create an Angular-js TodoList" , isDone : false },
+				{ taskName : "Understanding Angular-js Directives" , isDone : true }
+			]
+		},
+		{
+			name : "Secondary" , list : [
+				{ taskName : "Build an open-source website builder" , isDone : false },
+				{ taskName : "BUild an Email Builder" , isDone : false }
+			]
+		}
+	];
+	$scope.currentShow = 0;
 
 	$scope.addTodo = function  () {
 		/*Should prepend to array*/
-		$scope.todos.splice(0,0,{taskName : $scope.newTodo , isDone : false });
+		$scope.model[$scope.currentShow].list.splice(0,0,{taskName : $scope.newTodo , isDone : false });
 		/*Reset the Field*/
 		$scope.newTodo = "";
 	};
 
 	$scope.deleteTodo = function  (index) {
-		$scope.todos.splice(index, 1);
+		$scope.model[$scope.currentShow].list.splice(index, 1);
 	};
 
 	$scope.todoSortable = {
 		containment : "parent",//Dont let the user drag outside the parent
 		cursor : "move",//Change the cursor icon on drag
 		tolerance : "pointer"//Read http://api.jqueryui.com/sortable/#option-tolerance
+	};
+
+	$scope.changeTodo = function  (i) {
+		$scope.currentShow = i;
 	};
 
 	/* Filter Function for All | Incomplete | Complete */
@@ -52,7 +74,7 @@ App.controller("TodoCtrl",function  ($scope,localStorageService) {
 		}
 	};
 
-	$scope.$watch("todos",function  (newVal,oldVal) {
+	$scope.$watch("model",function  (newVal,oldVal) {
 		if (newVal !== null && angular.isDefined(newVal) && newVal!==oldVal) {
 			localStorageService.add("todoList",angular.toJson(newVal));
 		}
