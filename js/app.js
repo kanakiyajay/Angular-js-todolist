@@ -6,24 +6,24 @@
 **/
 "use strict";
 
-var App = angular.module("todo",["ui.sortable","LocalStorageModule"]);
+var App = angular.module("todo", ["ui.sortable", "LocalStorageModule"]);
 
-App.controller("TodoCtrl",function  ($scope,localStorageService) {
+App.controller("TodoCtrl", function ($scope, localStorageService) {
 
-	$scope.init = function  () {
+	$scope.init = function () {
 
-		if (localStorageService.get("todoList")===null) {
+		if (!localStorageService.get("todoList")) {
 			$scope.model = [
 				{
-					name : "Primary" , list : [
-						{ taskName : "Create an Angular-js TodoList" , isDone : false },
-						{ taskName : "Understanding Angular-js Directives" , isDone : true }
+					name: "Primary", list: [
+						{ taskName: "Create an Angular-js TodoList", isDone: false },
+						{ taskName: "Understanding Angular-js Directives", isDone: true }
 					]
 				},
 				{
-					name : "Secondary" , list : [
-						{ taskName : "Build an open-source website builder" , isDone : false },
-						{ taskName : "BUild an Email Builder" , isDone : false }
+					name: "Secondary", list: [
+						{ taskName: "Build an open-source website builder", isDone: false },
+						{ taskName: "BUild an Email Builder", isDone: false }
 					]
 				}
 			];
@@ -36,7 +36,7 @@ App.controller("TodoCtrl",function  ($scope,localStorageService) {
 
 	$scope.addTodo = function  () {
 		/*Should prepend to array*/
-		$scope.model[$scope.currentShow].list.splice(0,0,{taskName : $scope.newTodo , isDone : false });
+		$scope.model[$scope.currentShow].list.splice(0, 0, {taskName: $scope.newTodo, isDone: false });
 		/*Reset the Field*/
 		$scope.newTodo = "";
 	};
@@ -46,9 +46,9 @@ App.controller("TodoCtrl",function  ($scope,localStorageService) {
 	};
 
 	$scope.todoSortable = {
-		containment : "parent",//Dont let the user drag outside the parent
-		cursor : "move",//Change the cursor icon on drag
-		tolerance : "pointer"//Read http://api.jqueryui.com/sortable/#option-tolerance
+		containment: "parent",//Dont let the user drag outside the parent
+		cursor: "move",//Change the cursor icon on drag
+		tolerance: "pointer"//Read http://api.jqueryui.com/sortable/#option-tolerance
 	};
 
 	$scope.changeTodo = function  (i) {

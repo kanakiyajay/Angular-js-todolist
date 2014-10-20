@@ -107,7 +107,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<ul class="list-unstyled" ui-sortable="todoSortable" ng-model="todos" ng-repeat="todos in model" ng-show="$index === currentShow">
+					<ul class="list-unstyled" ng-repeat="todos in model track by $index" ui-sortable="todoSortable" ng-model="todos.list" ng-show="$index === currentShow">
 						<li class="todoTask" ng-repeat="todo in todos.list | filter:showFn | filter :todoSearch ">
 							<input class="todoCheckbox" ng-model="todo.isDone" type="checkbox">
 							<label class="todoCheckboxlabel" ></label>
