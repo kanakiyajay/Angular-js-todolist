@@ -20,6 +20,7 @@
 
 	<script src="js/libs/jquery.min.js"></script>
 	<script src="js/libs/jquery-ui.min.js"></script>
+	<script src="js/libs/jquery.ui.touch-punch.min.js"></script>
 	<script src="js/libs/bootstrap.min.js"></script>
 	<script src="js/libs/angular.min.js"></script>
 	<script src="js/libs/angular-local-storage.min.js"></script>
@@ -112,7 +113,7 @@
 							<input class="todoCheckbox" ng-model="todo.isDone" type="checkbox">
 							<label class="todoCheckboxlabel" ></label>
 							<edit-in-place value="todo.taskName"></edit-in-place>
-							<button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteTodo($index)">&times;</button>
+							<button type="button" class="close pull-right" aria-hidden="true" ng-click="deleteTodo(todo)">&times;</button>
 						</li>
 					</ul>
 				</div>

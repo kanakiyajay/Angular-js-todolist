@@ -34,14 +34,15 @@ App.controller("TodoCtrl", function ($scope, localStorageService) {
 		$scope.currentShow = 0;
 	};
 
-	$scope.addTodo = function  () {
+	$scope.addTodo = function () {
 		/*Should prepend to array*/
 		$scope.model[$scope.currentShow].list.splice(0, 0, {taskName: $scope.newTodo, isDone: false });
 		/*Reset the Field*/
 		$scope.newTodo = "";
 	};
 
-	$scope.deleteTodo = function  (index) {
+	$scope.deleteTodo = function (item) {
+		var index = $scope.model[$scope.currentShow].list.indexOf(item);
 		$scope.model[$scope.currentShow].list.splice(index, 1);
 	};
 
@@ -51,12 +52,12 @@ App.controller("TodoCtrl", function ($scope, localStorageService) {
 		tolerance: "pointer"//Read http://api.jqueryui.com/sortable/#option-tolerance
 	};
 
-	$scope.changeTodo = function  (i) {
+	$scope.changeTodo = function (i) {
 		$scope.currentShow = i;
 	};
 
 	/* Filter Function for All | Incomplete | Complete */
-	$scope.showFn = function  (todo) {
+	$scope.showFn = function (todo) {
 		if ($scope.show === "All") {
 			return true;
 		}else if(todo.isDone && $scope.show === "Complete"){
@@ -68,7 +69,7 @@ App.controller("TodoCtrl", function ($scope, localStorageService) {
 		}
 	};
 
-	$scope.$watch("model",function  (newVal,oldVal) {
+	$scope.$watch("model",function (newVal,oldVal) {
 		if (newVal !== null && angular.isDefined(newVal) && newVal!==oldVal) {
 			localStorageService.add("todoList",angular.toJson(newVal));
 		}
